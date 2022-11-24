@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CategoryCard = ({ category }) => {
 
-    const { image, categoryName } = category;
+    const { _id, image, categoryName } = category;
+
 
     return (
         <div className="card w-full md:w-56 bg-base-100 shadow-xl m-4">
@@ -12,6 +14,7 @@ const CategoryCard = ({ category }) => {
             <div className="card-body items-center text-center">
                 <h2 className="text-lg">{categoryName}</h2>
             </div>
+            <Link to={`/category/${_id}`}>View All</Link>
         </div>
     );
 };
