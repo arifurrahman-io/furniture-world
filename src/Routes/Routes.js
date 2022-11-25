@@ -4,11 +4,13 @@ import Main from '../layout/Main'
 import AddProduct from '../pages/AddProduct/AddProduct';
 import Blog from '../pages/Blog/Blog';
 import Category from '../pages/Category/Category';
+import AllClients from '../pages/Dashboard/AllClients/AllClients';
 import AllSellers from '../pages/Dashboard/AllSellers/AllSellers';
 import Home from '../pages/Home/Home'
-import MyOrders from '../pages/MyOrders/MyOrders';
+import MyOrders from '../pages/Dashboard/MyOrders/MyOrders';
 import SignIn from '../pages/SignIn/SignIn';
 import SignUp from '../pages/SignUp/SignUp';
+import MyProducts from '../pages/Dashboard/MyProducts/MyProducts';
 
 const router = createBrowserRouter([
     {
@@ -48,8 +50,17 @@ const router = createBrowserRouter([
                 element: <MyOrders></MyOrders>
             },
             {
+                path: '/dashboard/myproducts',
+                element: <MyProducts></MyProducts>
+            },
+            {
                 path: '/dashboard/managesellers',
                 element: <AllSellers></AllSellers>
+
+            },
+            {
+                path: '/dashboard/manageclients',
+                element: <AllClients></AllClients>
 
             },
             {

@@ -27,7 +27,7 @@ const DashboardLayout = () => {
                         {
                             isAdmin &&
                             <>
-                                <li><Link to='/dashboard/allproducts'>My Products</Link></li>
+                                <li><Link to='/dashboard/myproducts'>My Products</Link></li>
                                 <li><Link to='/dashboard/addproduct'>Add A Product</Link></li>
                                 <li><Link to='/dashboard/managesellers'>All Sellers</Link></li>
                                 <li><Link to='/dashboard/manageclients'>All Cleints</Link></li>
@@ -36,7 +36,7 @@ const DashboardLayout = () => {
                         {
                             isSeller &&
                             <>
-                                <li><Link to='/dashboard/allproducts'>My Products</Link></li>
+                                <li><Link to='/dashboard/myproducts'>My Products</Link></li>
                                 <li><Link to='/dashboard/addproduct'>Add A Product</Link></li>
                             </>
                         }

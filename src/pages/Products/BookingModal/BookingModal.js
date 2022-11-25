@@ -20,6 +20,7 @@ const BookingModal = ({ selectedProduct, setSelectedProduct }) => {
         //sending data to db
         const booking = {
             productName: selectedProduct.name,
+            image: selectedProduct.image,
             price,
             buyer: name,
             email,
