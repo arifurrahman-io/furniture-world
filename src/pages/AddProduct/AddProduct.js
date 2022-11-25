@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 
 const AddProduct = () => {
+
+    const { user } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
@@ -54,7 +57,9 @@ const AddProduct = () => {
                         time: data.time,
                         image: imgData.data.url,
                         uploadDate: date,
-                        uploadTime: time
+                        uploadTime: time,
+                        sellerEmail: user.email,
+                        sellerName: user.displayName
                     }
                     // save product info to db
                     fetch(' http://localhost:5000/products', {

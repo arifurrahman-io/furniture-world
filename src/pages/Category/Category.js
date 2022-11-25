@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import Product from '../Product/Product';
+import BookingModal from '../Products/BookingModal/BookingModal';
+import Products from '../Products/Products';
 
 const Category = () => {
 
     const products = useLoaderData();
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     return (
         <div>
             <p className='text-2xl'>Total {products?.length} products in this category</p>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+            <div className='grid grid-cols-1 gap-5'>
                 {
-                    products?.length && products.map(product => <Product
+                    products?.length && products.map(product => <Products
                         key={product._id}
                         product={product}
-                    ></Product>)
+                        setSelectedProduct={setSelectedProduct}
+                    ></Products>)
                 }
             </div>
+            <BookingModal selectedProduct={selectedProduct}></BookingModal>
         </div>
     );
 };

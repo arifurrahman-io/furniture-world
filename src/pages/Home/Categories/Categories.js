@@ -20,7 +20,7 @@ const Categories = () => {
 
 
     return (
-        <div>
+        <section>
             <h2 className='text-2xl py-5 text-center'>Categories</h2>
             <div className='flex justify-center'>
                 {
@@ -30,7 +30,7 @@ const Categories = () => {
                     ></CategoryCard>)
                 }
             </div>
-        </div>
+        </section>
     );
 };
 
