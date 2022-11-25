@@ -8,7 +8,7 @@ const Categories = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories')
+        fetch('https://furniture-world-server.vercel.app/categories')
             .then(res => res.json())
             .then(data => setCategories(data))
     }, []);
@@ -20,9 +20,9 @@ const Categories = () => {
 
 
     return (
-        <section>
+        <section className='md:mx-80'>
             <h2 className='text-2xl py-5 text-center'>Categories</h2>
-            <div className='flex justify-center'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
                 {
                     categories?.length && categories.map(category => <CategoryCard
                         key={category._id}

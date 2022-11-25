@@ -17,7 +17,7 @@ const AddProduct = () => {
     const { data: productCategories, isLoading } = useQuery({
         queryKey: ['categoryName'],
         queryFn: async () => {
-            const res = await fetch(' http://localhost:5000/productCategory');
+            const res = await fetch(' https://furniture-world-server.vercel.app/productCategory');
             const data = await res.json();
             return data;
         }
@@ -62,7 +62,7 @@ const AddProduct = () => {
                         sellerName: user.displayName
                     }
                     // save product info to db
-                    fetch(' http://localhost:5000/products', {
+                    fetch(' https://furniture-world-server.vercel.app/products', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

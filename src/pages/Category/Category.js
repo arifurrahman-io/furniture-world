@@ -20,7 +20,12 @@ const Category = () => {
                     ></Products>)
                 }
             </div>
-            <BookingModal selectedProduct={selectedProduct}></BookingModal>
+            {
+                selectedProduct &&
+                <BookingModal
+                    selectedProduct={selectedProduct}
+                    setSelectedProduct={setSelectedProduct}
+                ></BookingModal>}
         </div>
     );
 };

@@ -4,6 +4,7 @@ import Main from '../layout/Main'
 import AddProduct from '../pages/AddProduct/AddProduct';
 import Blog from '../pages/Blog/Blog';
 import Category from '../pages/Category/Category';
+import AllSellers from '../pages/Dashboard/AllSellers/AllSellers';
 import Home from '../pages/Home/Home'
 import MyOrders from '../pages/MyOrders/MyOrders';
 import SignIn from '../pages/SignIn/SignIn';
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <Category></Category>,
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`)
+                loader: ({ params }) => fetch(`https://furniture-world-server.vercel.app/category/${params.id}`)
             }
 
         ]
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <MyOrders></MyOrders>
+            },
+            {
+                path: '/dashboard/managesellers',
+                element: <AllSellers></AllSellers>
+
             },
             {
                 path: '/dashboard/addproduct',
