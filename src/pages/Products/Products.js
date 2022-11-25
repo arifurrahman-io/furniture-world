@@ -3,6 +3,9 @@ import { FaMapSigns, FaDollarSign, FaRegClock, FaConfluence, FaCheckCircle } fro
 import '../../pages/Products/Products.css';
 
 const Product = ({ product, setSelectedProduct }) => {
+
+
+
     const { name, image, price, newPrice, location, description, time, material, uploadDate, uploadTime, sellerName } = product;
 
 

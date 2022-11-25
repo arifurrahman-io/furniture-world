@@ -16,7 +16,7 @@ const DashboardLayout = () => {
             <NaveBar></NaveBar>
             <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content">
+                <div className="drawer-content px-20 py-20">
                     <Outlet></Outlet>
                 </div>
                 <div className="drawer-side">
