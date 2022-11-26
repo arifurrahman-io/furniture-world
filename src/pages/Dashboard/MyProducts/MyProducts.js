@@ -46,6 +46,10 @@ const MyProducts = () => {
         }
     }
 
+    if (myProducts.length === 0) {
+        return <p className='text-xl font-semibold text-center'>No Products Found!</p>
+    }
+
 
     return (
         <div>

@@ -26,7 +26,7 @@ const MyOrders = () => {
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to cancel the order?`)
         if (agree) {
-            fetch(`http://localhost:5000/order/${id}`, {
+            fetch(`https://furniture-world-server.vercel.app/order/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -43,6 +43,7 @@ const MyOrders = () => {
 
     return (
         <div>
+            <h2 className="text-xl text-center pb-2 font-semibold">Order List</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
 

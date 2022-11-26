@@ -16,7 +16,7 @@ const AllClients = () => {
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to delete the buyer?`)
         if (agree) {
-            fetch(`http://localhost:5000/client/${id}`, {
+            fetch(`https://furniture-world-server.vercel.app/client/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -32,7 +32,7 @@ const AllClients = () => {
 
     return (
         <div>
-            <h2 className="text-xl">All Users</h2>
+            <h2 className="text-xl text-center pb-2 font-semibold">Buyer List</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
 

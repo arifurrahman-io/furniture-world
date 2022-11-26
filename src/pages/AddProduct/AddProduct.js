@@ -86,8 +86,8 @@ const AddProduct = () => {
 
 
     return (
-        <div className='w-full px-6 md:px-12 lg:px-20 p-7'>
-            <h3 className="text-3xl">Add A Product</h3>
+        <div className='w-full md:w-2/4'>
+            <h3 className="text-xl font-semibold text-center">Add A Product</h3>
             <form onSubmit={handleSubmit(handleAddProduct)}>
 
                 <div className="form-control w-full ">
@@ -162,11 +162,11 @@ const AddProduct = () => {
 
                 <div className="form-control w-full ">
                     <label className="label"><span className="label-text">Photo</span></label>
-                    <input type='file' {...register("image", { required: "Photo is Required." })} className="input input-bordered w-full " />
+                    <input type='file' {...register("image", { required: "Photo is Required." })} />
                     {errors.image && <p className='text-red-600' role="alert">{errors.image?.message}</p>}
                 </div>
 
-                <input className='btn btn-accent w-full mt-5' value='Add Product' type="submit" />
+                <input className='btn btn-warning w-full mt-5 text-white' value='Add Product' type="submit" />
             </form>
         </div>
     );
