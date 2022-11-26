@@ -63,7 +63,7 @@ const MyOrders = () => {
                                 <th>{i + 1}</th>
                                 <td><img src={user.image} alt="" className='w-[70px] rounded-xl' /></td>
                                 <td>{user.productName}</td>
-                                <td>{user.price} Tk</td>
+                                <td>${user.price}</td>
                                 <td>
                                     {
                                         user?.price && !user?.paid &&

@@ -14,6 +14,7 @@ const Categories = () => {
     }, []);
 
 
+
     if (loading) {
         return <p>Loading...</p>
     }
