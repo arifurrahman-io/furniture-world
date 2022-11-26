@@ -60,7 +60,7 @@ const SignIn = () => {
                             {errors.password && <p className='text-red-600' role="alert">{errors.password?.message}</p>}
                         </div>
 
-                        <input className='btn btn-accent w-full mt-5' value='Signup' type="submit" />
+                        <input className='btn btn-accent w-full mt-5' value='Signin' type="submit" />
 
                         <div>
                             {loginError && <p>{loginError} why not?</p>}

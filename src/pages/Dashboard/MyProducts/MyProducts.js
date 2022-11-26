@@ -8,14 +8,14 @@ const MyProducts = () => {
     const [buttonText, setButtonText] = useState("Advertise Now");
 
     useEffect(() => {
-        fetch(`http://localhost:5000/myproducts?email=${user?.email}`)
+        fetch(`https://furniture-world-server.vercel.app/myproducts?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setMyProducts(data))
 
     }, [user?.email]);
 
     const handleAdvertise = id => {
-        fetch(`http://localhost:5000/myproducts/${id}`, {
+        fetch(`https://furniture-world-server.vercel.app/myproducts/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -33,7 +33,7 @@ const MyProducts = () => {
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to delete the product?`)
         if (agree) {
-            fetch(`http://localhost:5000/myproducts/${id}`, {
+            fetch(`https://furniture-world-server.vercel.app/myproducts/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

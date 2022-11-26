@@ -2,13 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider';
+import toast from 'react-hot-toast';
 
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:5000/bookings?email=${user?.email}`
+    const url = `https://furniture-world-server.vercel.app/bookings?email=${user?.email}`
 
-    const { data: bookings = [] } = useQuery({
+    const { data: bookings = [], refetch } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -17,10 +18,27 @@ const MyOrders = () => {
                 }
             });
             const data = await res.json();
-            console.log(data);
             return data;
         }
     })
+
+
+    const handleDelete = id => {
+        const agree = window.confirm(`Are you sure to cancel the order?`)
+        if (agree) {
+            fetch(`http://localhost:5000/order/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        toast.success('Your order deleted successfully!')
+                        refetch();
+                    }
+                });
+        }
+    }
 
 
     return (
@@ -56,7 +74,7 @@ const MyOrders = () => {
                                         user.price && user.paid && <span className='text-primary'>Paid</span>
                                     }
                                 </td>
-                                <td><button className='btn btn-warning btn-xs'>Delete</button></td>
+                                <td><button onClick={() => handleDelete(user._id)} className='btn btn-warning btn-xs'>Delete</button></td>
                             </tr>)
                         }
                     </tbody>

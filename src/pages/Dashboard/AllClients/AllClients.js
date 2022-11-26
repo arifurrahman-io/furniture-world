@@ -1,16 +1,34 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const AllClients = () => {
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/buyer');
+            const res = await fetch('https://furniture-world-server.vercel.app/users/buyer');
             const data = await res.json();
             return data;
         }
     })
+
+    const handleDelete = id => {
+        const agree = window.confirm(`Are you sure to delete the buyer?`)
+        if (agree) {
+            fetch(`http://localhost:5000/client/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        toast.success('Buyer deleted successfully!')
+                        refetch();
+                    }
+                });
+        }
+    }
 
     return (
         <div>
@@ -34,7 +52,7 @@ const AllClients = () => {
                                 <td>{user.name}</td>
                                 <td>{user.phone}</td>
                                 <td>{user.email}</td>
-                                <td><button className='btn btn-warning btn-xs'>Delete</button></td>
+                                <td><button onClick={() => handleDelete(user._id)} className='btn btn-warning btn-xs'>Delete</button></td>
                             </tr>)
                         }
                     </tbody>
