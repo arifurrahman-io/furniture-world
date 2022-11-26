@@ -15,6 +15,7 @@ import Payment from '../pages/Dashboard/Payment/Payment';
 import AdminRoute from './AdminRoute/AdminRoute';
 import SellerRoute from './SellerRoute/SellerRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
+import Wishlist from '../pages/Dashboard/Wishlist/Wishlist';
 
 const router = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <Category></Category>,
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`)
+                loader: ({ params }) => fetch(`https://furniture-world-server.vercel.app/category/${params.id}`)
             }
 
         ]
@@ -68,13 +69,18 @@ const router = createBrowserRouter([
 
             },
             {
+                path: '/dashboard/mywishlist',
+                element: <Wishlist></Wishlist>
+
+            },
+            {
                 path: '/dashboard/addproduct',
                 element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
             },
             {
                 path: '/dashboard/payment/:id',
                 element: <Payment></Payment>,
-                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader: ({ params }) => fetch(`https://furniture-world-server.vercel.app/bookings/${params.id}`)
             }
         ]
     }

@@ -30,15 +30,19 @@ const DashboardLayout = () => {
                             }
                             <h4 className='px-4 text-lg font-bold'>Wecome {user.displayName}</h4>
                         </div>
-
-
-
-                        <li><Link to='/dashboard'>My Orders</Link></li>
+                        {
+                            !isAdmin && !isSeller &&
+                            <>
+                                <li><Link to='/dashboard'>My Orders</Link></li>
+                                <li><Link to='/dashboard/mywishlist'>My Wishlist</Link></li>
+                            </>
+                        }
                         {
                             isAdmin &&
                             <>
                                 <li><Link to='/dashboard/managesellers'>All Sellers</Link></li>
                                 <li><Link to='/dashboard/manageclients'>All Buyers</Link></li>
+
                             </>
                         }
                         {

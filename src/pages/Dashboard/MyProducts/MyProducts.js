@@ -9,7 +9,7 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext);
 
 
-    const url = `http://localhost:5000/myproducts?email=${user?.email}`;
+    const url = `https://furniture-world-server.vercel.app/myproducts?email=${user?.email}`;
 
     const { data: products = [], refetch } = useQuery({
         queryKey: ['products', user?.email],
@@ -25,7 +25,7 @@ const MyProducts = () => {
     })
 
     const handleAdvertise = id => {
-        fetch(`http://localhost:5000/myproducts/${id}`, {
+        fetch(`https://furniture-world-server.vercel.app/myproducts/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -41,7 +41,7 @@ const MyProducts = () => {
     }
 
     const handleUnlist = id => {
-        fetch(`http://localhost:5000/myproducts/status/${id}`, {
+        fetch(`https://furniture-world-server.vercel.app/myproducts/status/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -61,7 +61,7 @@ const MyProducts = () => {
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to delete the product?`)
         if (agree) {
-            fetch(`http://localhost:5000/myproducts/${id}`, {
+            fetch(`https://furniture-world-server.vercel.app/myproducts/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

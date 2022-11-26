@@ -1,15 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../../context/AuthProvider';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
-const MyOrders = () => {
+const Wishlist = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `https://furniture-world-server.vercel.app/bookings?email=${user?.email}`
+    const url = `https://furniture-world-server.vercel.app/wishlist?email=${user?.email}`
 
-    const { data: bookings = [], refetch } = useQuery({
+    const { data: wishlist = [], refetch } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -23,10 +23,11 @@ const MyOrders = () => {
     })
 
 
+
     const handleDelete = id => {
-        const agree = window.confirm(`Are you sure to cancel the order?`)
+        const agree = window.confirm(`Are you sure to delete the item?`)
         if (agree) {
-            fetch(`https://furniture-world-server.vercel.app/order/${id}`, {
+            fetch(`https://furniture-world-server.vercel.app/wishlist/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -40,10 +41,9 @@ const MyOrders = () => {
         }
     }
 
-
     return (
         <div>
-            <h2 className="text-xl text-center pb-2 font-semibold">Order List</h2>
+            <h2 className="text-xl text-center pb-2 font-semibold">My Wishlist</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
 
@@ -59,23 +59,23 @@ const MyOrders = () => {
                     </thead>
                     <tbody>
                         {
-                            bookings.length && bookings.map((user, i) => <tr key={user._id}>
+                            wishlist.length && wishlist.map((wish, i) => <tr key={wish._id}>
                                 <th>{i + 1}</th>
-                                <td><img src={user.image} alt="" className='w-[70px] rounded-xl' /></td>
-                                <td>{user.productName}</td>
-                                <td>${user.price}</td>
+                                <td><img src={wish.imageUrl} alt="" className='w-[70px] rounded-xl' /></td>
+                                <td>{wish.productName}</td>
+                                <td>${wish.price}</td>
                                 <td>
                                     {
-                                        user?.price && !user?.paid &&
-                                        <Link to={`/dashboard/payment/${user._id}`}>
-                                            <button className='btn btn-xs btn-primary'>Pay</button>
+                                        wish?.price && !wish?.paid &&
+                                        <Link to={`/dashboard/payment/${wish._id}`}>
+                                            <button className='btn btn-xs btn-primary'>Buy Now</button>
                                         </Link>
                                     }
                                     {
-                                        user.price && user.paid && <span className='text-primary'>Paid</span>
+                                        wish.price && wish.paid && <span className='text-primary'>Paid</span>
                                     }
                                 </td>
-                                <td><button onClick={() => handleDelete(user._id)} className='btn btn-warning btn-xs'>Delete</button></td>
+                                <td><button onClick={() => handleDelete(wish._id)} className='btn btn-warning btn-xs'>Delete</button></td>
                             </tr>)
                         }
                     </tbody>
@@ -85,4 +85,4 @@ const MyOrders = () => {
     );
 };
 
-export default MyOrders;
+export default Wishlist;

@@ -4,7 +4,7 @@ const useVerified = email => {
     const [isVerified, setIsVerified] = useState(false);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/verifiedseller/${email}`)
+            fetch(`https://furniture-world-server.vercel.app/verifiedseller/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsVerified(data.isVerified);

@@ -7,7 +7,7 @@ const AllClients = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/buyer');
+            const res = await fetch('https://furniture-world-server.vercel.app/users/buyer');
             const data = await res.json();
             return data;
         }
@@ -16,7 +16,7 @@ const AllClients = () => {
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to delete the buyer?`)
         if (agree) {
-            fetch(`http://localhost:5000/client/${id}`, {
+            fetch(`https://furniture-world-server.vercel.app/client/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

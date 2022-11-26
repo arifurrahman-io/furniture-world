@@ -17,7 +17,7 @@ const AddProduct = () => {
     const { data: productCategories, isLoading } = useQuery({
         queryKey: ['categoryName'],
         queryFn: async () => {
-            const res = await fetch(' http://localhost:5000/productCategory');
+            const res = await fetch(' https://furniture-world-server.vercel.app/productCategory');
             const data = await res.json();
             return data;
         }
@@ -49,12 +49,12 @@ const AddProduct = () => {
                     const product = {
                         name: data.name,
                         categoryID: data.category,
-                        material: data.material,
+                        condition: data.condition,
                         description: data.description,
                         price: data.price,
                         newPrice: data.newPrice,
                         location: data.location,
-                        time: data.time,
+                        purchaseYear: data.time,
                         image: imgData.data.url,
                         uploadDate: date,
                         uploadTime: time,
@@ -63,7 +63,7 @@ const AddProduct = () => {
                         status: "unlisted"
                     }
                     // save product info to db
-                    fetch(' http://localhost:5000/products', {
+                    fetch(' https://furniture-world-server.vercel.app/products', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -74,7 +74,7 @@ const AddProduct = () => {
                         .then(res => res.json())
                         .then(result => {
                             toast.success(`${product.name} added successfully`);
-                            navigate('/dashboard/addproduct');
+                            navigate('/dashboard/myproducts');
                         })
                 }
             })
@@ -115,13 +115,13 @@ const AddProduct = () => {
                     </div>
 
                     <div className="form-control w-full">
-                        <label className="label"><span className="label-text">Material</span></label>
+                        <label className="label"><span className="label-text">Product Condition</span></label>
                         <select
-                            {...register("material", { required: "Material is Required." })}
+                            {...register("condition", { required: "Condition is Required." })}
                             className="select input-bordered w-full  text-black">
-                            <option value="Wood" selected>Wood</option>
-                            <option value="Wood">Fibar</option>
-                            <option value="Wood">Metal</option>
+                            <option value="Wood" selected>Excellent</option>
+                            <option value="Wood">Good</option>
+                            <option value="Wood">Fair</option>
 
                         </select>
                     </div>
@@ -155,8 +155,8 @@ const AddProduct = () => {
                     </div>
 
                     <div className="form-control w-full ">
-                        <label className="label"><span className="label-text">How many month/years you used it?</span></label>
-                        <input type='text' {...register("time", { required: "Used Time is Required." })} className="input input-bordered w-full " />
+                        <label className="label"><span className="label-text">Year of purchase</span></label>
+                        <input type='number' {...register("time", { required: "Year of purchase is Required." })} className="input input-bordered w-full " />
                         {errors.time && <p className='text-red-600' role="alert">{errors.time?.message}</p>}
                     </div>
                 </div>

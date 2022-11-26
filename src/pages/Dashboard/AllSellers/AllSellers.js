@@ -9,7 +9,7 @@ const AllSellers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/seller');
+            const res = await fetch('https://furniture-world-server.vercel.app/users/seller');
             const data = await res.json();
             return data;
         }
@@ -17,7 +17,7 @@ const AllSellers = () => {
 
 
     const handleVerify = email => {
-        fetch(`http://localhost:5000/seller/status/verify/${email}`, {
+        fetch(`https://furniture-world-server.vercel.app/seller/status/verify/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -33,7 +33,7 @@ const AllSellers = () => {
     }
 
     const handleUnVerify = email => {
-        fetch(`http://localhost:5000/seller/status/${email}`, {
+        fetch(`https://furniture-world-server.vercel.app/seller/status/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -51,7 +51,7 @@ const AllSellers = () => {
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to delete the seller?`)
         if (agree) {
-            fetch(`http://localhost:5000/seller/${id}`, {
+            fetch(`https://furniture-world-server.vercel.app/seller/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

@@ -1,14 +1,48 @@
-import React from 'react';
-import { FaMapSigns, FaDollarSign, FaRegClock, FaConfluence, FaCheckCircle } from "react-icons/fa";
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { FaMapSigns, FaDollarSign, FaRegClock, FaConfluence, FaCheckCircle, FaClipboardList } from "react-icons/fa";
+import { Navigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 import useVerified from '../../hooks/useVerified';
 import '../../pages/Products/Products.css';
 
 
 const Product = ({ product, setSelectedProduct }) => {
 
+    const { user } = useContext(AuthContext);
+
     const [isVerified] = useVerified(product.sellerEmail);
 
-    const { name, image, price, newPrice, location, description, time, material, uploadDate, uploadTime, sellerName } = product;
+    const { name, image, price, newPrice, location, description, purchaseYear, condition, uploadDate, uploadTime, sellerName } = product;
+
+    const wishlistItem = {
+        productID: product._id,
+        productName: product.name,
+        imageUrl: product.image,
+        price: product.price,
+        email: user.email,
+        buyer: user.displayName,
+        location: product.location,
+        phone: product.phone
+
+    }
+
+    const handleWish = (wishlistItem) => {
+        fetch(' https://furniture-world-server.vercel.app/wishlist', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `berear ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(wishlistItem)
+        })
+            .then(res => res.json())
+            .then(result => {
+                toast.success(`${wishlistItem.productName} added successfully`);
+                Navigate('/dashboard');
+            })
+
+    }
 
     return (
         <div className='shadow bg-orange-50 m-2 p-2 lg:py-6 lg:px-6'>
@@ -18,11 +52,11 @@ const Product = ({ product, setSelectedProduct }) => {
                     <div>
                         <h2 className="card-title mb-2">{name}</h2>
                         <h4 className='text-lg font-semibold my-2'>Short Description:</h4>
-                        <div className='px-12 md:px-4 my-auto text-lg font-semibold'>
+                        <div className='px-4 md:px-12 my-auto text-lg font-semibold'>
                             <div className='style'><FaDollarSign className='mr-2 text-yellow-600' /> <p>Selling Price:${price}</p></div>
                             <div className='style'><FaDollarSign className='mr-2 text-yellow-600' /><p className='line-through'>New Product: ${newPrice}</p> </div>
-                            <div className='style'><FaRegClock className='mr-2 text-yellow-600' /> {time} Used</div>
-                            <div className='style'><FaConfluence className='mr-2 text-yellow-600' />Material: {material}</div>
+                            <div className='style'><FaRegClock className='mr-2 text-yellow-600' />Year of purchase: {purchaseYear}</div>
+                            <div className='style'><FaConfluence className='mr-2 text-yellow-600' />Condition: {condition}</div>
                             <div className='style'><FaMapSigns className='mr-2 text-yellow-600' /><p>Location: {location}</p> </div>
                             <div className='style'><FaRegClock className='mr-2 text-yellow-600' />Published on {uploadDate} at {uploadTime}</div>
                         </div>
@@ -38,7 +72,10 @@ const Product = ({ product, setSelectedProduct }) => {
                             }
 
 
-                            <label htmlFor="booking-modal" className="btn btn-warning" onClick={() => setSelectedProduct(product)}>Book Now</label>
+                            <div className='flex'>
+                                <label htmlFor="booking-modal" className="btn btn-warning" onClick={() => setSelectedProduct(product)}>Book Now</label>
+                                <label onClick={() => handleWish(wishlistItem)} className='ml-10 btn btn-sm my-auto'><FaClipboardList className='text-lg  text-purple-500' />Add to Wishlist</label>
+                            </div>
                         </div>
                     </div>
                 </div>
