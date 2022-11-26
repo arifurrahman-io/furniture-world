@@ -3,12 +3,13 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider';
 import { FaCheckCircle } from "react-icons/fa";
+import '../../Products/Products.css';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
 
 
-    const url = `https://furniture-world-server.vercel.app/myproducts?email=${user?.email}`;
+    const url = `http://localhost:5000/myproducts?email=${user?.email}`;
 
     const { data: products = [], refetch } = useQuery({
         queryKey: ['products', user?.email],
@@ -24,7 +25,7 @@ const MyProducts = () => {
     })
 
     const handleAdvertise = id => {
-        fetch(`https://furniture-world-server.vercel.app/myproducts/${id}`, {
+        fetch(`http://localhost:5000/myproducts/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -39,12 +40,28 @@ const MyProducts = () => {
             })
     }
 
+    const handleUnlist = id => {
+        fetch(`http://localhost:5000/myproducts/status/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Unlisted Successfully.');
+                    refetch();
+                }
+            })
+    }
+
 
 
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to delete the product?`)
         if (agree) {
-            fetch(`https://furniture-world-server.vercel.app/myproducts/${id}`, {
+            fetch(`http://localhost:5000/myproducts/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -87,17 +104,17 @@ const MyProducts = () => {
                                 <td>${product.price}</td>
                                 <td>
                                     {
-                                        !product.status &&
+                                        product.status === 'unlisted' &&
                                         <>
-                                            <button onClick={() => handleAdvertise(product?._id)} className='btn btn-warning btn-xs mx-1'>Advertise</button>
+                                            <button onClick={() => handleAdvertise(product?._id)} className='btn btn-primary btn-xs'>Advertise</button>
                                         </>
 
                                     }
                                     {
-                                        product.status &&
+                                        product.status === 'advertised' &&
                                         <>
-                                            <p className='text-yellow-600 flex'><FaCheckCircle />Advertised</p>
-                                            <button className='btn btn-xs'><FaCheckCircle />Make Unavailable</button>
+                                            <p className='text-[#a0a0e8] flex style'><FaCheckCircle />Advertised</p>
+                                            <button onClick={() => handleUnlist(product?._id)} className='btn btn-primary btn-xs'><FaCheckCircle />Make Unavailable</button>
                                         </>
                                     }
 

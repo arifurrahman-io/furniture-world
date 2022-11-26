@@ -44,7 +44,7 @@ const SignUp = () => {
 
     const saveUser = (name, email, phone, userType) => {
         const user = { name, email, phone, userType }
-        fetch('https://furniture-world-server.vercel.app/users', {
+        fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

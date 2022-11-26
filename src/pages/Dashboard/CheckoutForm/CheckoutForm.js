@@ -18,7 +18,7 @@ const CheckoutForm = ({ booking }) => {
 
     useEffect(() => {
 
-        fetch("https://furniture-world-server.vercel.app/create-payment-intent", {
+        fetch("http://localhost:5000/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const CheckoutForm = ({ booking }) => {
             return;
         }
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error } = await stripe.createPaymentMethod({
             type: 'card',
             card,
         });
@@ -82,7 +82,7 @@ const CheckoutForm = ({ booking }) => {
                 bookingId: _id
             }
 
-            fetch('https://furniture-world-server.vercel.app/payments', {
+            fetch('http://localhost:5000/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

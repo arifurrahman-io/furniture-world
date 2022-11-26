@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `https://furniture-world-server.vercel.app/bookings?email=${user?.email}`
+    const url = `http://localhost:5000/bookings?email=${user?.email}`
 
     const { data: bookings = [], refetch } = useQuery({
         queryKey: ['bookings', user?.email],
@@ -26,7 +26,7 @@ const MyOrders = () => {
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to cancel the order?`)
         if (agree) {
-            fetch(`https://furniture-world-server.vercel.app/order/${id}`, {
+            fetch(`http://localhost:5000/order/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

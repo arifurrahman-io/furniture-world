@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
+import { FaCheckCircle } from "react-icons/fa";
 
 
 const AllSellers = () => {
@@ -8,16 +9,49 @@ const AllSellers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('https://furniture-world-server.vercel.app/users/seller');
+            const res = await fetch('http://localhost:5000/users/seller');
             const data = await res.json();
             return data;
         }
     })
 
+
+    const handleVerify = email => {
+        fetch(`http://localhost:5000/seller/status/verify/${email}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Verified Successfully.');
+                    refetch();
+                }
+            })
+    }
+
+    const handleUnVerify = email => {
+        fetch(`http://localhost:5000/seller/status/${email}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Unverified Successfully.');
+                    refetch();
+                }
+            })
+    }
+
     const handleDelete = id => {
         const agree = window.confirm(`Are you sure to delete the seller?`)
         if (agree) {
-            fetch(`https://furniture-world-server.vercel.app/seller/${id}`, {
+            fetch(`http://localhost:5000/seller/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -43,6 +77,7 @@ const AllSellers = () => {
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -53,6 +88,22 @@ const AllSellers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.phone}</td>
                                 <td>{user.email}</td>
+                                <td>
+                                    {
+                                        user.status === 'unverified' &&
+                                        <>
+                                            <button onClick={() => handleVerify(user?.email)} className='btn btn-primary btn-xs'>Verify</button>
+                                        </>
+
+                                    }
+                                    {
+                                        user.status === 'verified' &&
+                                        <>
+                                            <p className='text-[#a0a0e8] flex style'><FaCheckCircle />Verified</p>
+                                            <button onClick={() => handleUnVerify(user?.email)} className='btn btn-primary btn-xs'><FaCheckCircle />Unverify</button>
+                                        </>
+                                    }
+                                </td>
                                 <td><button onClick={() => handleDelete(user._id)} className='btn btn-warning btn-xs'>Delete</button></td>
                             </tr>)
                         }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import useAdvertise from '../../hooks/useAdvertise';
 import BookingModal from '../Products/BookingModal/BookingModal';
 import Products from '../Products/Products';
 
