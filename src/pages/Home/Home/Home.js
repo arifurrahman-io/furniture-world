@@ -1,11 +1,13 @@
 import React from 'react';
-import AllProducts from './AllProducts';
-import Categories from './Categories/Categories';
+import Categories from '../Categories/Categories';
+import Carousel from '../Home/Carousel';
+import AllProducts from '../Home/AllProducts';
+
 
 const Home = () => {
     return (
         <div>
-            <h4>Home</h4>
+            <Carousel></Carousel>
             <Categories></Categories>
             <AllProducts></AllProducts>
         </div>

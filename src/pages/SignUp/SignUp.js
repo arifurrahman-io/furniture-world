@@ -5,11 +5,12 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import useToken from '../../hooks/useToken';
 import { AuthContext } from '../../context/AuthProvider';
+import Loading from '../../shared/Loading/Loading';
 
 const SignUp = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser, loading } = useContext(AuthContext);
 
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
@@ -38,6 +39,9 @@ const SignUp = () => {
             .catch(err => console.error(err));
     }
 
+    if (loading) {
+        return <Loading></Loading>
+    }
 
 
     const saveUser = (name, email, phone, userType) => {
@@ -51,7 +55,6 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setCreatedUserEmail(email)
             })
     }

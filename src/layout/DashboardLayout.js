@@ -26,7 +26,7 @@ const DashboardLayout = () => {
                         <div className='px-4'>
                             {
                                 user?.photoURL &&
-                                <img src={user.photoURL} alt="" className='w-20 rounded-full' />
+                                <img src={user.photoURL} alt="" className='w-20 rounded-3xl' />
                             }
                             <h4 className='text-lg font-bold'>Wecome {user.displayName}</h4>
                         </div>

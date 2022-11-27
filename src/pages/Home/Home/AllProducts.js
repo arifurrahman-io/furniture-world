@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import ProductsCard from './ProductsCard';
+import React, { useState } from 'react';
+import BookingModal from '../../Products/BookingModal/BookingModal';
+import ProductsCard from '../Home/ProductsCard';
 
 const AllProducts = () => {
 
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     const url = `http://localhost:5000/allproducts`;
 
-    const { data: products = [], refetch } = useQuery({
+    const { data: products = [] } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -16,26 +18,31 @@ const AllProducts = () => {
                 }
             });
             const data = await res.json();
-            console.log(data);
             return data;
         }
     })
 
 
-
     return (
         <div className='my-24 mx-10'>
-            <h2 className='text-center font-semibold text-2xl my-10'>Latest Products</h2>
+            <h2 className='text-center font-bold text-4xl my-10'>Latest Products</h2>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {
                     products?.length && products.filter(product => product.status === 'advertised').map(
                         product => <ProductsCard
                             key={product._id}
-                            product={product}>
-                        </ProductsCard>
+                            product={product}
+                            setSelectedProduct={setSelectedProduct}
+                        ></ProductsCard>
                     )
                 }
             </div>
+            {
+                selectedProduct &&
+                <BookingModal
+                    selectedProduct={selectedProduct}
+                    setSelectedProduct={setSelectedProduct}
+                ></BookingModal>}
         </div>
     );
 };

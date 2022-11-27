@@ -6,7 +6,6 @@ import Blog from '../pages/Blog/Blog';
 import Category from '../pages/Category/Category';
 import AllClients from '../pages/Dashboard/AllClients/AllClients';
 import AllSellers from '../pages/Dashboard/AllSellers/AllSellers';
-import Home from '../pages/Home/Home'
 import MyOrders from '../pages/Dashboard/MyOrders/MyOrders';
 import SignIn from '../pages/SignIn/SignIn';
 import SignUp from '../pages/SignUp/SignUp';
@@ -16,6 +15,7 @@ import AdminRoute from './AdminRoute/AdminRoute';
 import SellerRoute from './SellerRoute/SellerRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import Wishlist from '../pages/Dashboard/Wishlist/Wishlist';
+import Home from '../pages/Home/Home/Home';
 
 const router = createBrowserRouter([
     {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                element: <Category></Category>,
+                element: <PrivateRoute><Category></Category></PrivateRoute>,
                 loader: ({ params }) => fetch(`https://furniture-world-server.vercel.app/category/${params.id}`)
             }
 

@@ -4,11 +4,12 @@ import { FaMapSigns, FaDollarSign, FaRegClock, FaConfluence, FaCheckCircle, FaCl
 import { AuthContext } from '../../context/AuthProvider';
 import useVerified from '../../hooks/useVerified';
 import '../../pages/Products/Products.css';
+import Loading from '../../shared/Loading/Loading';
 
 
 const Product = ({ product, setSelectedProduct }) => {
 
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
 
     const [isVerified] = useVerified(product.sellerEmail);
 
@@ -40,6 +41,10 @@ const Product = ({ product, setSelectedProduct }) => {
                 toast.success(`${wishlistItem.productName} added successfully`);
             })
 
+    }
+
+    if (loading) {
+        return <Loading></Loading>
     }
 
     return (

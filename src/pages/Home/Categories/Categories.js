@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/AuthProvider';
+import Loading from '../../../shared/Loading/Loading';
 import CategoryCard from './CategoryCard';
 
 const Categories = () => {
@@ -16,7 +17,7 @@ const Categories = () => {
 
 
     if (loading) {
-        return <p>Loading...</p>
+        return <Loading></Loading>
     }
 
 

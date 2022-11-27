@@ -7,6 +7,7 @@ import img from '../../assets/signup.png';
 import img2 from '../../assets/google-signin-button.png';
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
+import Loading from '../../shared/Loading/Loading';
 
 const SignIn = () => {
 
@@ -32,7 +33,6 @@ const SignIn = () => {
         console.log(data);
         signIn(data.email, data.password)
             .then(result => {
-
                 setLoginUserEmail(data.email);
 
             })
@@ -47,7 +47,6 @@ const SignIn = () => {
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(user);
                 const userType = 'buyer';
                 saveUser(user?.displayName, user.email, user.phoneNumber, userType)
                 toast.success('Your email is verified!')
@@ -55,13 +54,7 @@ const SignIn = () => {
             })
             .catch(error => console.error(error));
         if (loading) {
-            return <div>
-                <button type="button" disabled>
-                    <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-                    </svg>
-                    Loading...
-                </button>
-            </div>
+            return <Loading></Loading>
         }
     }
 
@@ -76,7 +69,6 @@ const SignIn = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setCreatedUserEmail(email)
                 navigate(from, { replace: true });
             })
