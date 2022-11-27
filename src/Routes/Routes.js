@@ -16,6 +16,7 @@ import SellerRoute from './SellerRoute/SellerRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import Wishlist from '../pages/Dashboard/Wishlist/Wishlist';
 import Home from '../pages/Home/Home/Home';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
                 path: '/category/:id',
                 element: <PrivateRoute><Category></Category></PrivateRoute>,
                 loader: ({ params }) => fetch(`https://furniture-world-server.vercel.app/category/${params.id}`)
+            },
+            {
+                path: '*',
+                element: <ErrorPage></ErrorPage>
             }
 
         ]
