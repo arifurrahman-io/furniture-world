@@ -1,9 +1,33 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import BlogCard from './BlogCard';
 
 const Blog = () => {
+
+    const url = `http://localhost:5000/blog`;
+
+    const { data: blogs = [] } = useQuery({
+        queryKey: ['products'],
+        queryFn: async () => {
+            const res = await fetch(url, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            const data = await res.json();
+            return data;
+        }
+    })
+
+
     return (
-        <div>
-            <h3>Blog</h3>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mx-5 my-10 md:mx-60 md:my-20'>
+            {
+                blogs?.length && blogs.map(blog => <BlogCard
+                    key={blog._id}
+                    blog={blog}
+                ></BlogCard>)
+            }
         </div>
     );
 };

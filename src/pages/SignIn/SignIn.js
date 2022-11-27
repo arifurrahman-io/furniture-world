@@ -29,6 +29,8 @@ const SignIn = () => {
         navigate(from, { replace: true });
     }
 
+
+
     const handleLogin = data => {
         console.log(data);
         signIn(data.email, data.password)
@@ -48,8 +50,8 @@ const SignIn = () => {
             .then(result => {
                 const user = result.user;
                 const userType = 'buyer';
-                saveUser(user?.displayName, user.email, user.phoneNumber, userType)
-                toast.success('Your email is verified!')
+                saveUser(user.displayName, user.email, user.phone, userType);
+
 
             })
             .catch(error => console.error(error));
@@ -69,6 +71,7 @@ const SignIn = () => {
         })
             .then(res => res.json())
             .then(data => {
+                toast.success('Login Successful!')
                 setCreatedUserEmail(email)
                 navigate(from, { replace: true });
             })

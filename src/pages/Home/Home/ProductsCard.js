@@ -74,7 +74,7 @@ const ProductsCard = ({ product, setSelectedProduct }) => {
                     <h4 className='flex style'><FaAngellist className='mr-2 text-teal-500 text-xl' /> {condition} condition</h4>
                 </div>
 
-                <div className="card-actions justify-evenly mb-0 my-auto">
+                <div className="card-actions justify-between mb-0 my-auto">
                     <label htmlFor="booking-modal" onClick={() => setSelectedProduct(product)} className="btn btn-active btn-primary"><FaLuggageCart className='mr-2 text-lg' />Book</label>
                     <button onClick={() => handleWish(wishlistItem)} className="btn btn-outline btn-primary"><FaHeart className='mr-2 text-lg' /> Wishlist</button>
                 </div>

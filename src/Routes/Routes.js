@@ -17,6 +17,7 @@ import PrivateRoute from './PrivateRoute/PrivateRoute';
 import Wishlist from '../pages/Dashboard/Wishlist/Wishlist';
 import Home from '../pages/Home/Home/Home';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import BlogPage from '../pages/Blog/BlogPage';
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path: '/blogpage/:id',
+                element: <BlogPage></BlogPage>,
+                loader: ({ params }) => fetch(`http://localhost:5000/blogpage/${params.id}`)
             },
             {
                 path: '/signup',
