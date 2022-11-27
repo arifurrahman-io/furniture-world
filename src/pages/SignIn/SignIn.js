@@ -4,16 +4,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import useToken from '../../hooks/useToken';
 import img from '../../assets/signup.png';
+import img2 from '../../assets/google-signin-button.png';
+import toast from 'react-hot-toast';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const SignIn = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, providerLogin, loading } = useContext(AuthContext);
 
     const { loginError, setLoginError } = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
 
     const [loginUserEmail, setLoginUserEmail] = useState('');
-    const [token] = useToken(loginUserEmail);
+    const [token] = useToken(loginUserEmail, createdUserEmail);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -38,6 +42,46 @@ const SignIn = () => {
             })
     }
 
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                const userType = 'buyer';
+                saveUser(user?.displayName, user.email, user.phoneNumber, userType)
+                toast.success('Your email is verified!')
+
+            })
+            .catch(error => console.error(error));
+        if (loading) {
+            return <div>
+                <button type="button" disabled>
+                    <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                    </svg>
+                    Loading...
+                </button>
+            </div>
+        }
+    }
+
+    const saveUser = (name, email, phone, userType) => {
+        const user = { name, email, phone, userType }
+        fetch('https://furniture-world-server.vercel.app/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setCreatedUserEmail(email)
+                navigate(from, { replace: true });
+            })
+    }
+
 
 
     return (
@@ -46,27 +90,33 @@ const SignIn = () => {
                 <div className="text-center lg:text-left w-full lg:w-1/2">
                     <img src={img} alt="" />
                 </div>
-                <div onSubmit={handleSubmit} className="card w-full lg:w-1/2">
-                    <form onSubmit={handleSubmit(handleLogin)}>
+                <div className="card w-full lg:w-1/2">
+                    <div onSubmit={handleSubmit} >
+                        <form onSubmit={handleSubmit(handleLogin)}>
 
-                        <div className="form-control w-full ">
-                            <label className="label"><span className="label-text">Email</span></label>
-                            <input type='email' {...register("email", { required: "Email Address is Required." })} className="input input-bordered w-full " />
-                            {errors.email && <p className='text-red-600' role="alert">{errors.email?.message}</p>}
-                        </div>
-                        <div className="form-control w-full">
-                            <label className="label"><span className="label-text">Password</span></label>
-                            <input type='password' {...register("password", { required: "Password id Required", minLength: { value: 6, message: "Password must be 6 charecters or longer." }, pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}/, message: "Password must be strong." } })} className="input input-bordered w-full" />
-                            {errors.password && <p className='text-red-600' role="alert">{errors.password?.message}</p>}
-                        </div>
+                            <div className="form-control w-full ">
+                                <label className="label"><span className="label-text">Email</span></label>
+                                <input type='email' {...register("email", { required: "Email Address is Required." })} className="input input-bordered w-full " />
+                                {errors.email && <p className='text-red-600' role="alert">{errors.email?.message}</p>}
+                            </div>
+                            <div className="form-control w-full">
+                                <label className="label"><span className="label-text">Password</span></label>
+                                <input type='password' {...register("password", { required: "Password id Required", minLength: { value: 6, message: "Password must be 6 charecters or longer." }, pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}/, message: "Password must be strong." } })} className="input input-bordered w-full" />
+                                {errors.password && <p className='text-red-600' role="alert">{errors.password?.message}</p>}
+                            </div>
 
-                        <input className='btn btn-accent w-full mt-5' value='Signin' type="submit" />
+                            <input className='btn btn-accent w-full mt-5' value='Signin' type="submit" />
 
-                        <div>
-                            {loginError && <p>{loginError} why not?</p>}
-                        </div>
+                            <div>
+                                {loginError && <p>{loginError} why not?</p>}
+                            </div>
 
-                    </form>
+                        </form>
+                    </div>
+                    <div className="divider">OR</div>
+                    <div className="card rounded-box place-items-center">
+                        <button onClick={handleGoogleSignIn}><img src={img2} alt="" className='w-1/2 mx-auto' /></button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -23,12 +23,12 @@ const DashboardLayout = () => {
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <div className="menu bg-[#E6E6FA] p-4 w-80 text-base-content">
 
-                        <div>
+                        <div className='px-4'>
                             {
                                 user?.photoURL &&
-                                <img src={user.photoURL} alt="" />
+                                <img src={user.photoURL} alt="" className='w-20 rounded-full' />
                             }
-                            <h4 className='px-4 text-lg font-bold'>Wecome {user.displayName}</h4>
+                            <h4 className='text-lg font-bold'>Wecome {user.displayName}</h4>
                         </div>
                         {
                             !isAdmin && !isSeller &&

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { FaMapSigns, FaDollarSign, FaRegClock, FaConfluence, FaCheckCircle, FaClipboardList } from "react-icons/fa";
-import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import useVerified from '../../hooks/useVerified';
 import '../../pages/Products/Products.css';
@@ -20,8 +19,8 @@ const Product = ({ product, setSelectedProduct }) => {
         productName: product.name,
         imageUrl: product.image,
         price: product.price,
-        email: user.email,
-        buyer: user.displayName,
+        email: user?.email,
+        buyer: user?.displayName,
         location: product.location,
         phone: product.phone
 
@@ -39,7 +38,6 @@ const Product = ({ product, setSelectedProduct }) => {
             .then(res => res.json())
             .then(result => {
                 toast.success(`${wishlistItem.productName} added successfully`);
-                Navigate('/dashboard');
             })
 
     }
