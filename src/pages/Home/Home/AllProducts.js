@@ -7,7 +7,7 @@ const AllProducts = () => {
 
     const [selectedProduct, setSelectedProduct] = useState(null);
 
-    const url = `http://localhost:5000/allproducts`;
+    const url = `https://furniture-world-server.vercel.app/allproducts`;
 
     const { data: products = [] } = useQuery({
         queryKey: ['products'],

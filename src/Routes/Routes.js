@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             {
                 path: '/blogpage/:id',
                 element: <BlogPage></BlogPage>,
-                loader: ({ params }) => fetch(`http://localhost:5000/blogpage/${params.id}`)
+                loader: ({ params }) => fetch(`https://furniture-world-server.vercel.app/blogpage/${params.id}`)
             },
             {
                 path: '/signup',

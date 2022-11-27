@@ -4,7 +4,7 @@ import BlogCard from './BlogCard';
 
 const Blog = () => {
 
-    const url = `http://localhost:5000/blog`;
+    const url = `https://furniture-world-server.vercel.app/blog`;
 
     const { data: blogs = [] } = useQuery({
         queryKey: ['products'],

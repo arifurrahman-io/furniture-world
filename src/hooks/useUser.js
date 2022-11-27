@@ -5,7 +5,7 @@ const useUser = email => {
     const [isUserLoading, setIsUserLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/user/${email}`)
+            fetch(`https://furniture-world-server.vercel.app/user/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsUser(data.isUser);
