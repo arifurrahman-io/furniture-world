@@ -43,8 +43,8 @@ const SignUp = () => {
     }
 
 
-    const saveUser = (name, email, phone, userType) => {
-        const user = { name, email, phone, userType }
+    const saveUser = (name, email, phone, userType, status = ['unverified']) => {
+        const user = { name, email, phone, userType, status }
         fetch('https://furniture-world-server.vercel.app/users', {
             method: 'POST',
             headers: {
