@@ -18,6 +18,7 @@ import Wishlist from '../pages/Dashboard/Wishlist/Wishlist';
 import Home from '../pages/Home/Home/Home';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import BlogPage from '../pages/Blog/BlogPage';
+import Dashboard from '../pages/Dashboard/Dashboard/Dashboard';
 
 const router = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: '/dashboard/myorders',
                 element: <MyOrders></MyOrders>
             },
             {

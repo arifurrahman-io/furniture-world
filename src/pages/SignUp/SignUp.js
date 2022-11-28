@@ -18,9 +18,7 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
-    if (token) {
-        navigate('/');
-    }
+
 
     const handleSignUp = (data) => {
         createUser(data.email, data.password)
@@ -59,6 +57,9 @@ const SignUp = () => {
             })
     }
 
+    if (token) {
+        navigate('/');
+    }
 
     return (
         <div className="hero py-8 lg:py-16">

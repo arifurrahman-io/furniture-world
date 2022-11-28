@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+
+
 import BookingModal from '../../Products/BookingModal/BookingModal';
 import ProductsCard from '../Home/ProductsCard';
 
@@ -24,9 +26,9 @@ const AllProducts = () => {
 
 
     return (
-        <div className='my-24 mx-10'>
+        <div className='my-24 md:mx-10 lg:mx-20'>
             <h2 className='text-center font-bold text-4xl my-10'>Latest Products</h2>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {
                     products?.length && products.filter(product => product.status === 'advertised').map(
                         product => <ProductsCard
@@ -42,7 +44,8 @@ const AllProducts = () => {
                 <BookingModal
                     selectedProduct={selectedProduct}
                     setSelectedProduct={setSelectedProduct}
-                ></BookingModal>}
+                ></BookingModal>
+            }
         </div>
     );
 };

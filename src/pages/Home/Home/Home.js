@@ -7,7 +7,7 @@ import TipsOfWood from './TipsOfWood';
 
 const Home = () => {
     return (
-        <div>
+        <div className='px-5'>
             <Carousel></Carousel>
             <Categories></Categories>
             <AllProducts></AllProducts>

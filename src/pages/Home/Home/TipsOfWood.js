@@ -3,14 +3,14 @@ import img from '../../../assets/wood.jpg';
 
 const TipsOfWood = () => {
     return (
-        <div className='my-40 mx-10'>
+        <div className='my-40 md:mx-5'>
             <h2 className='text-4xl font-bold text-center mb-12'>Way to find good wood for furniture</h2>
             <div className='md:flex'>
-                <div className='md:w-1/2'>
-                    <img src={img} alt="" className='p-5 mask mask-hexagon' />
+                <div className='w-full md:w-1/2'>
+                    <img src={img} alt="" className='mask mask-hexagon' />
                 </div>
-                <div className='md:w-1/2 my-auto'>
-                    <ul className='p-5 text-justify text-md'>
+                <div className='w-full md:w-1/2 my-auto'>
+                    <ul className='text-justify text-md'>
                         <li className='list-item list-inside shadow-md p-3 bg-orange-100 my-3 rounded-md'>
                             Look for solid wood. If a store claims that a piece of furniture is solid wood, that means that it only contains wood. Solid wood tends to be more durable, though it is usually more expensive.
                         </li>

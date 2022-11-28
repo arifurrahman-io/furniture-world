@@ -46,9 +46,6 @@ const BookingModal = ({ selectedProduct, setSelectedProduct }) => {
                     toast.error(data.message);
                 }
             })
-
-
-
     }
 
 

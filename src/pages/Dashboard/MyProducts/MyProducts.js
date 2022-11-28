@@ -69,6 +69,7 @@ const MyProducts = () => {
                     console.log(data)
                     if (data.deletedCount > 0) {
                         toast.success('Product deleted successfully!')
+                        refetch();
                     }
                 });
         }

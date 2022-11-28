@@ -14,7 +14,7 @@ const ProductsCard = ({ product, setSelectedProduct }) => {
     const { user, loading } = useContext(AuthContext);
     const [isVerified] = useVerified(product.sellerEmail);
 
-    const { name, price, newPrice, location, time, image, uploadDate, uploadTime, sellerName, condition } = product;
+    const { name, price, newPrice, location, purchaseYear, image, uploadDate, uploadTime, sellerName, condition } = product;
 
     const wishlistItem = {
         productID: product._id,
@@ -29,6 +29,9 @@ const ProductsCard = ({ product, setSelectedProduct }) => {
     }
 
     const handleWish = (wishlistItem) => {
+        if (!user) {
+            return toast.error('Please Signin.')
+        }
         fetch(' https://furniture-world-server.vercel.app/wishlist', {
             method: 'POST',
             headers: {
@@ -70,12 +73,16 @@ const ProductsCard = ({ product, setSelectedProduct }) => {
                     <h4 className='flex style'><FaCreativeCommonsNc className='mr-2 text-teal-500 text-xl' /> ${newPrice} (New one)</h4>
                 </div>
                 <div className='grid grid-cols-2 gap-2'>
-                    <h4 className='flex style'><FaFontAwesomeFlag className='mr-2 text-teal-500 text-xl' /> Bought in {time}</h4>
+                    <h4 className='flex style'><FaFontAwesomeFlag className='mr-2 text-teal-500 text-xl' /> Bought in {purchaseYear}</h4>
                     <h4 className='flex style'><FaAngellist className='mr-2 text-teal-500 text-xl' /> {condition} condition</h4>
                 </div>
 
                 <div className="card-actions justify-between mb-0 my-auto">
-                    <label htmlFor="booking-modal" onClick={() => setSelectedProduct(product)} className="btn btn-active btn-primary"><FaLuggageCart className='mr-2 text-lg' />Book</label>
+                    {
+                        user ?
+                            <label htmlFor="booking-modal" onClick={() => setSelectedProduct(product)} className="btn btn-active btn-primary"><FaLuggageCart className='mr-2 text-lg' />Book</label> :
+                            <label className="btn btn-active btn-primary">Signin to Book</label>
+                    }
                     <button onClick={() => handleWish(wishlistItem)} className="btn btn-outline btn-primary"><FaHeart className='mr-2 text-lg' /> Wishlist</button>
                 </div>
             </div>

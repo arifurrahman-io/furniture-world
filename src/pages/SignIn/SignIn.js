@@ -25,11 +25,6 @@ const SignIn = () => {
 
     const from = location.state?.from?.pathname || '/';
 
-    if (token) {
-        navigate(from, { replace: true });
-    }
-
-
 
     const handleLogin = data => {
         console.log(data);
@@ -49,35 +44,35 @@ const SignIn = () => {
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                const userType = 'buyer';
-                saveUser(user.displayName, user.email, user.phone, userType);
-
-
+                const newUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    phone: user.phoneNumber
+                }
+                saveUser(newUser);
             })
             .catch(error => console.error(error));
-        if (loading) {
-            return <Loading></Loading>
-        }
     }
 
-    const saveUser = (name, email, phone, userType) => {
-        const user = { name, email, phone, userType }
-        fetch('https://furniture-world-server.vercel.app/users', {
-            method: 'POST',
+    const saveUser = (newUser) => {
+        fetch(`https://furniture-world-server.vercel.app/user/${newUser.email}`, {
+            method: 'PUT',
             headers: {
+                'Accept': 'application/json',
                 'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
+            }
         })
             .then(res => res.json())
             .then(data => {
                 toast.success('Login Successful!')
-                setCreatedUserEmail(email)
                 navigate(from, { replace: true });
+                setCreatedUserEmail(newUser.email);
             })
     }
 
-
+    if (loading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className="hero py-8 lg:py-16">

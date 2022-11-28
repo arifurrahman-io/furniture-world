@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import Loading from '../../shared/Loading/Loading';
 
 const AddProduct = () => {
 
@@ -45,6 +46,7 @@ const AddProduct = () => {
         })
             .then(res => res.json())
             .then(imgData => {
+
                 if (imgData.success) {
                     const product = {
                         name: data.name,
@@ -54,7 +56,7 @@ const AddProduct = () => {
                         price: data.price,
                         newPrice: data.newPrice,
                         location: data.location,
-                        purchaseYear: data.time,
+                        purchaseYear: data.purchaseYear,
                         image: imgData.data.url,
                         uploadDate: date,
                         uploadTime: time,
@@ -62,6 +64,8 @@ const AddProduct = () => {
                         sellerName: user.displayName,
                         status: "unlisted"
                     }
+
+
                     // save product info to db
                     fetch(' https://furniture-world-server.vercel.app/products', {
                         method: 'POST',
@@ -80,10 +84,10 @@ const AddProduct = () => {
             })
 
     }
-
     if (isLoading) {
-        return <p>Loading...</p>
+        return <Loading></Loading>
     }
+
 
 
     return (
@@ -119,9 +123,9 @@ const AddProduct = () => {
                         <select
                             {...register("condition", { required: "Condition is Required." })}
                             className="select input-bordered w-full  text-black">
-                            <option value="Wood" selected>Excellent</option>
-                            <option value="Wood">Good</option>
-                            <option value="Wood">Fair</option>
+                            <option value="Excellent" selected>Excellent</option>
+                            <option value="Good">Good</option>
+                            <option value="Fair">Fair</option>
 
                         </select>
                     </div>
@@ -136,13 +140,13 @@ const AddProduct = () => {
                 <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
                     <div className="form-control w-full ">
                         <label className="label"><span className="label-text">Selling Price</span></label>
-                        <input type='number' {...register("price", { required: "Selling Price is Required." })} className="input input-bordered w-full " />
+                        <input type='number' {...register("price", { required: "Selling Price is Required." })} className="input input-bordered w-full " placeholder='$' />
                         {errors.price && <p className='text-red-600' role="alert">{errors.price?.message}</p>}
                     </div>
 
                     <div className="form-control w-full ">
                         <label className="label"><span className="label-text">Original Price</span></label>
-                        <input type='number' {...register("newPrice", { required: "Original Price is Required." })} className="input input-bordered w-full " />
+                        <input type='number' {...register("newPrice", { required: "Original Price is Required." })} className="input input-bordered w-full " placeholder='$' />
                         {errors.newPrice && <p className='text-red-600' role="alert">{errors.newPrice?.message}</p>}
                     </div>
                 </div>
@@ -156,7 +160,7 @@ const AddProduct = () => {
 
                     <div className="form-control w-full ">
                         <label className="label"><span className="label-text">Year of purchase</span></label>
-                        <input type='number' {...register("time", { required: "Year of purchase is Required." })} className="input input-bordered w-full " />
+                        <input type='number' {...register("purchaseYear", { required: "Year of purchase is Required." })} className="input input-bordered w-full " />
                         {errors.time && <p className='text-red-600' role="alert">{errors.time?.message}</p>}
                     </div>
                 </div>
