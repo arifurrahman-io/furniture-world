@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Helmet from 'react-helmet';
 import { useLoaderData } from 'react-router-dom';
 import BookingModal from '../Products/BookingModal/BookingModal';
 import Products from '../Products/Products';
@@ -10,6 +11,9 @@ const Category = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Product Category | Furniture World</title>
+            </Helmet>
             <div className='grid grid-cols-1 gap-5'>
                 {
                     products?.length && products.filter(product => product.status === 'advertised').map(product => <Products

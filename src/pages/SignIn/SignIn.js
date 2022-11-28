@@ -8,6 +8,7 @@ import img2 from '../../assets/google-signin-button.png';
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
 import Loading from '../../shared/Loading/Loading';
+import { Helmet } from 'react-helmet';
 
 const SignIn = () => {
 
@@ -67,6 +68,9 @@ const SignIn = () => {
                 toast.success('Login Successful!')
                 navigate(from, { replace: true });
                 setCreatedUserEmail(newUser.email);
+                if (token) {
+                    navigate('/');
+                }
             })
     }
 
@@ -76,6 +80,9 @@ const SignIn = () => {
 
     return (
         <div className="hero py-8 lg:py-16">
+            <Helmet>
+                <title>Signin | Furniture World</title>
+            </Helmet>
             <div className="hero-content flex-col lg:flex-row">
                 <div className="text-center lg:text-left w-full lg:w-1/2">
                     <img src={img} alt="" />

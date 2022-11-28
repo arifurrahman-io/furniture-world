@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import useToken from '../../hooks/useToken';
 import { AuthContext } from '../../context/AuthProvider';
 import Loading from '../../shared/Loading/Loading';
+import Helmet from 'react-helmet';
 
 const SignUp = () => {
 
@@ -63,6 +64,9 @@ const SignUp = () => {
 
     return (
         <div className="hero py-8 lg:py-16">
+            <Helmet>
+                <title>Signup | Furniture World</title>
+            </Helmet>
             <div className="hero-content flex-col lg:flex-row">
                 <div className="text-center lg:text-left w-full lg:w-1/2">
                     <img src={img} alt="" />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { FaEye, FaThumbsUp } from "react-icons/fa";
+import Helmet from 'react-helmet';
 
 const BlogPage = () => {
 
@@ -10,6 +11,9 @@ const BlogPage = () => {
 
     return (
         <div className="card card-compact bg-base-100 mx-5 my-5 md:mx-40">
+            <Helmet>
+                <title>Blog | Furniture World</title>
+            </Helmet>
             <figure className='md:h-1/2'><img src={image} alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title text-2xl">{topic}</h2>

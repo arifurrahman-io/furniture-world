@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import Helmet from 'react-helmet';
 import BlogCard from './BlogCard';
 
 const Blog = () => {
@@ -22,6 +23,9 @@ const Blog = () => {
 
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mx-5 my-10 md:mx-60 md:my-20'>
+            <Helmet>
+                <title>Blog | Furniture World</title>
+            </Helmet>
             {
                 blogs?.length && blogs.map(blog => <BlogCard
                     key={blog._id}
