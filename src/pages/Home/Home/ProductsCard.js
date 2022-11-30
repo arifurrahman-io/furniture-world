@@ -52,8 +52,8 @@ const ProductsCard = ({ product, setSelectedProduct }) => {
     }
 
     return (
-        <div className="card h-[450px] card-compact bg-base-100 shadow-xl">
-            <figure className='h-2/5'><img src={image} alt="Product" className='' /></figure>
+        <div className="card h-[500px] card-compact bg-base-100 shadow-xl">
+            <figure className='h-1/2'><img src={image} alt="Product" /></figure>
             <div className="card-body">
                 <h2 className="card-title">{name}</h2>
                 <div className=''>

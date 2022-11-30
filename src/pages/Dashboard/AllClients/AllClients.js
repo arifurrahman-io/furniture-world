@@ -17,7 +17,10 @@ const AllClients = () => {
         const agree = window.confirm(`Are you sure to delete the buyer?`)
         if (agree) {
             fetch(`https://furniture-world-server.vercel.app/client/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
             })
                 .then(res => res.json())
                 .then(data => {

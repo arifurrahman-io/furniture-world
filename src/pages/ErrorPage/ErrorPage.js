@@ -9,7 +9,7 @@ const ErrorPage = () => {
                 <title>Page Not Found | Furniture World</title>
             </Helmet>
             <img src={img} alt="" />
-            <h2 className='my-auto text-4xl font-bold'>May be you are in wrong route. Please check the url...</h2>
+            <h2 className='my-auto text-4xl font-bold'>May be you are in wrong route. <br /> Please check the link...</h2>
         </div>
     );
 };

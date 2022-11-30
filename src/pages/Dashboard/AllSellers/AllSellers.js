@@ -52,7 +52,10 @@ const AllSellers = () => {
         const agree = window.confirm(`Are you sure to delete the seller?`)
         if (agree) {
             fetch(`https://furniture-world-server.vercel.app/seller/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
             })
                 .then(res => res.json())
                 .then(data => {

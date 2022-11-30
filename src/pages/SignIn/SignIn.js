@@ -7,13 +7,12 @@ import img from '../../assets/signup.png';
 import img2 from '../../assets/google-signin-button.png';
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
-import Loading from '../../shared/Loading/Loading';
 import { Helmet } from 'react-helmet';
 
 const SignIn = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn, providerLogin, loading } = useContext(AuthContext);
+    const { signIn, providerLogin } = useContext(AuthContext);
 
     const { loginError, setLoginError } = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
@@ -26,17 +25,25 @@ const SignIn = () => {
 
     const from = location.state?.from?.pathname || '/';
 
+    if (token) {
+        navigate(from);
+    }
 
     const handleLogin = data => {
-        console.log(data);
         signIn(data.email, data.password)
             .then(result => {
                 setLoginUserEmail(data.email);
-
+                toast.success('Login Successful!')
             })
-            .catch(err => {
-                console.error(err.message);
-                setLoginError(err.message);
+            .catch(e => {
+                console.error(e);
+                if (e.code === "auth/user-not-found") {
+                    toast.error('Make sure you registered with this email address.')
+                }
+                if (e.code === "auth/wrong-password") {
+                    toast.error('Wrong Password!')
+                }
+                setLoginError(e);
             })
     }
 
@@ -45,38 +52,34 @@ const SignIn = () => {
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                const newUser = {
-                    name: user.displayName,
-                    email: user.email,
-                    phone: user.phoneNumber
-                }
-                saveUser(newUser);
+                saveUser(
+                    user.displayName,
+                    user.email,
+                    user.phoneNumber)
+
+
             })
             .catch(error => console.error(error));
     }
 
-    const saveUser = (newUser) => {
-        fetch(`https://furniture-world-server.vercel.app/user/${newUser.email}`, {
+    const saveUser = (name, email, phone) => {
+        const user = { name, email, phone }
+        fetch(`https://furniture-world-server.vercel.app/user/${email}`, {
             method: 'PUT',
             headers: {
-                'Accept': 'application/json',
                 'content-type': 'application/json'
-            }
+            },
+            body: JSON.stringify(user)
         })
             .then(res => res.json())
             .then(data => {
                 toast.success('Login Successful!')
-                navigate(from, { replace: true });
-                setCreatedUserEmail(newUser.email);
-                if (token) {
-                    navigate('/');
-                }
+                setLoginUserEmail(user.email);
+                setCreatedUserEmail(user.email);
             })
     }
 
-    if (loading) {
-        return <Loading></Loading>
-    }
+
 
     return (
         <div className="hero py-8 lg:py-16">

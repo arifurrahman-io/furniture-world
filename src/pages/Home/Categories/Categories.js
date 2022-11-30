@@ -22,9 +22,9 @@ const Categories = () => {
 
 
     return (
-        <section className='md:mx-80'>
+        <section className='md:mx-50'>
             <h2 className='text-4xl py-5 font-bold text-center'>Categories</h2>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
+            <div className='flex flex-col md:flex-row justify-center'>
                 {
                     categories?.length && categories.map(category => <CategoryCard
                         key={category._id}

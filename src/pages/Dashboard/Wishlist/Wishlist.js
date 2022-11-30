@@ -72,7 +72,7 @@ const Wishlist = () => {
                                         </Link>
                                     }
                                     {
-                                        wish.price && wish.paid && <span className='text-primary'>Paid</span>
+                                        wish?.price && wish?.paid && <span className='text-primary'>Paid</span>
                                     }
                                 </td>
                                 <td><button onClick={() => handleDelete(wish._id)} className='btn btn-warning btn-xs'>Delete</button></td>

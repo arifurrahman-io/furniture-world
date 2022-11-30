@@ -19,7 +19,9 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
-
+    if (token) {
+        navigate('/');
+    }
 
     const handleSignUp = (data) => {
         createUser(data.email, data.password)
@@ -29,6 +31,7 @@ const SignUp = () => {
                     displayName: data.name,
                     phoneNumber: data.phone
                 }
+
                 updateUser(userInfo)
                     .then(() => {
                         saveUser(data.name, data.email, data.phone, data.userType);
@@ -38,12 +41,8 @@ const SignUp = () => {
             .catch(err => console.error(err));
     }
 
-    if (loading) {
-        return <Loading></Loading>
-    }
 
-
-    const saveUser = (name, email, phone, userType, status = ['unverified']) => {
+    const saveUser = (name, email, phone, userType, status = 'unverified') => {
         const user = { name, email, phone, userType, status }
         fetch('https://furniture-world-server.vercel.app/users', {
             method: 'POST',
@@ -58,8 +57,10 @@ const SignUp = () => {
             })
     }
 
-    if (token) {
-        navigate('/');
+
+
+    if (loading) {
+        return <Loading></Loading>
     }
 
     return (
