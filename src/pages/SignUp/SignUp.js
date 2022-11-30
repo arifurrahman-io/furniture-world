@@ -94,7 +94,7 @@ const SignUp = () => {
                         </div>
                         <div className="form-control w-full">
                             <label className="label"><span className="label-text">Password</span></label>
-                            <input type='password' {...register("password", { required: "Password id Required", minLength: { value: 6, message: "Password must be 6 charecters or longer." }, pattern: { value: /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}/, message: "Password must be strong." } })} className="input input-bordered w-full" />
+                            <input type='password' {...register("password", { required: "Password is Required", minLength: { value: 6, message: "Password must be 6 charecters or longer." } })} className="input input-bordered w-full" />
                             {errors.password && <p className='text-red-600' role="alert">{errors.password?.message}</p>}
                         </div>
                         <div className="form-control w-full">
